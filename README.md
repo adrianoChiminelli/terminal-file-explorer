@@ -1,28 +1,33 @@
 # Terminal File Explorer
 
-> Um explorador de arquivos simples e elegante para o terminal, desenvolvido em Rust.
+> A simple and elegant file explorer for the terminal, built with Rust.
 
-## 📋 Descrição
+## 📋 Description
 
-O **Terminal File Explorer** é um navegador de arquivos leve e intuitivo construído em Rust. Oferece uma experiência moderna e responsiva para explorar sua estrutura de diretórios diretamente do terminal.
-
-## 📋 Requisitos
-
-- **Rust** 1.56 ou superior
-
-Para instalar o Rust, visite [rustup.rs](https://rustup.rs/)
+**Terminal File Explorer** is a lightweight and intuitive file navigator built in Rust. It provides a modern and responsive experience for exploring your directory structure directly from the terminal.
 
 
-## 📝 Desenvolvimento
+## 📋 Requirements
 
-Para compilar o projeto:
+- **Rust** 1.56 or higher
+
+To install Rust, visit [rustup.rs](https://rustup.rs/)
+
+
+## 📝 Development
+
+To build the project:
 
 ```bash
 cargo build
 ```
 
-Para executar os testes:
+To run tests:
 
 ```bash
 cargo test
 ```
+
+## 📄 License
+
+This project is available under the MIT License.

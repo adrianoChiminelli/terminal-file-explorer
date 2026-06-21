@@ -1,20 +1,33 @@
-use ratatui::{DefaultTerminal, Frame};
+mod app;
+mod ui;
 
-fn main() -> color_eyre::Result<()> {
-    color_eyre::install()?;
-    ratatui::run(app)?;
-    Ok(())
-}
+use crate::app::App;
+use ratatui::backend::CrosstermBackend;
+use ratatui::Terminal;
 
-fn app(terminal: &mut DefaultTerminal) -> std::io::Result<()> {
-    loop {
-        terminal.draw(render)?;
-        if crossterm::event::read()?.is_key_press() {
-            break Ok(());
+fn main() -> std::io::Result<()> {
+    // setup
+    crossterm::terminal::enable_raw_mode()?;
+    let mut stdout = std::io::stdout();
+    crossterm::execute!(stdout, crossterm::terminal::EnterAlternateScreen)?;
+    let backend = CrosstermBackend::new(stdout);
+    let mut terminal = Terminal::new(backend)?;
+
+    let mut app = App::new();
+
+    // loop
+    while !app.should_quit {
+        terminal.draw(|frame| ui::draw(frame, &app))?;
+
+        if crossterm::event::poll(std::time::Duration::from_millis(100))? {
+            if let crossterm::event::Event::Key(key) = crossterm::event::read()? {
+                app.handle_key(key);
+            }
         }
     }
-}
 
-fn render(frame: &mut Frame) {
-    frame.render_widget("hello world", frame.area());
+    // restore
+    crossterm::terminal::disable_raw_mode()?;
+    crossterm::execute!(terminal.backend_mut(), crossterm::terminal::LeaveAlternateScreen)?;
+    Ok(())
 }
